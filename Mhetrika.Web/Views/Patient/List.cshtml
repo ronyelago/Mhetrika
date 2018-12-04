@@ -1,0 +1,41 @@
+﻿@model List<Mhetrika.Web.ViewModels.PatientViewModel>
+
+@{
+    ViewData["Title"] = "Pacientes";
+}
+
+<h2>Pacientes</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome do Paciente</th>
+            <th>CPF</th>
+            <th>E-Mail</th>
+            <th>Telefone</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cpf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

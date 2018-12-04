@@ -1,7 +1,7 @@
-﻿using LabClick.ViewModel.Validators;
-using System;
+﻿using System.ComponentModel.DataAnnotations;
+using LabClick.ViewModel.Validators;
 using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace Mhetrika.Web.ViewModels
 {

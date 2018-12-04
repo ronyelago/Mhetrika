@@ -3,6 +3,7 @@ using mhetrika.core.Entities;
 using mhetrika.Infrastructure.Repository;
 using Mhetrika.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Mhetrika.Web.Controllers
@@ -11,11 +12,12 @@ namespace Mhetrika.Web.Controllers
     {
         private readonly PatientRepository patientRepository = new PatientRepository();
 
-        public IActionResult Index()
+        public IActionResult List()
         {
             var patients = patientRepository.GetAll().ToList();
+            var list = Mapper.Map<List<PatientViewModel>>(patients);
 
-            return View(patients);
+            return View(list);
         }
 
         public ActionResult New()

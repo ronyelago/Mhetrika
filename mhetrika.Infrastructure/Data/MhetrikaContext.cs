@@ -25,11 +25,10 @@ namespace mhetrika.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new DoctorMap());
             modelBuilder.ApplyConfiguration(new ExamMap());
             modelBuilder.ApplyConfiguration(new LaboratoryMap());
-<<<<<<< HEAD
             modelBuilder.ApplyConfiguration(new CardioMap());
             modelBuilder.ApplyConfiguration(new FibrosisMap());
-=======
->>>>>>> 168f9364a63c20ee7b89ba8cb284def7e14b2f41
+            modelBuilder.ApplyConfiguration(new MedicamentMap());
+            modelBuilder.ApplyConfiguration(new QuizMap());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

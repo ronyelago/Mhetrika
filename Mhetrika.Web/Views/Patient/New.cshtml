@@ -1,0 +1,163 @@
+﻿@model Mhetrika.Web.ViewModels.PatientViewModel
+
+@{
+    ViewData["Title"] = "Cadastro de Paciente";
+}
+
+<div class="card-body">
+    <!-- BEGIN FORM-->
+    @using (Html.BeginForm("New", "Patient", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-3">Nome do Paciente:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Data Nascimento:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.BirthDate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.BirthDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Sexo:</label>
+            <div class="col-md-6">
+                @Html.DropDownListFor(
+                        model => model.Gender,
+                        new SelectList(
+                        new List<object>
+                            {
+                            new { value = 0 , text = "Selecione"  },
+                            new { value = 1 , text = "Masculino" },
+                            new { value = 2 , text = "Feminino"}
+                            },
+                            "value",
+                            "text",
+                            "sexo"
+                            ), new { @class = "form-control", @id = "sexo" }
+                            )
+
+                @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">CPF:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Cpf, new { htmlAttributes = new { @class = "form-control" } })
+                <span id="feedback_cpf" class="form-control-feedback has-feedback-left glyphicon hidden" aria-hidden="false"></span>
+                @Html.ValidationMessageFor(model => model.Cpf, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">E-mail:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Telefone:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">CEP:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.AddressViewModel.Cep, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddressViewModel.Cep, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">UF:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.AddressViewModel.Uf, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddressViewModel.Uf, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Cidade:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.AddressViewModel.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddressViewModel.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bairro:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.AddressViewModel.Neighbourhood, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddressViewModel.Neighbourhood, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Rua:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.AddressViewModel.Street, new { htmlAttributes = new { @class = "form-control" } })
+
+                @Html.ValidationMessageFor(model => model.AddressViewModel.Street, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Número:</label>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.AddressViewModel.Number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddressViewModel.Number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cadastrar" class="btn btn-success" />
+            </div>
+        </div>
+        <hr />
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#Cpf").mask('000.000.000-00', { reverse: true });
+        $("#Phone").mask('(00)00000-0000')
+        $("#AddressViewModel_Cep").mask('00000-000');
+        $("#AddressViewModel_Uf").mask('AA');
+        $("#AddressViewModel_Number").mask('000000');
+
+        // busca os dados do endereço pelo cep digitado
+        $("#AddressViewModel_Cep").focusout(function () {
+
+            var cep = $("#AddressViewModel_Cep").val();
+
+            if (cep != "") {
+
+                $.ajax({
+                    url: "https://viacep.com.br/ws/" + cep + "/json/",
+                    dataType: "json",
+                    success: function (data) {
+
+                        if (!("erro" in data)) {
+                            $("#AddressViewModel_Uf").val(data.uf);
+                            $("#AddressViewModel_City").val(data.localidade);
+                            $("#AddressViewModel_Neighbourhood").val(data.bairro);
+                            $("#AddressViewModel_Street").val(data.logradouro);
+                            $("#AddressViewModel_Number").focus();
+                        }
+                        else {
+                            alert("CEP não encontrado. Tente novamente ou preencha o endereço manualmente.")
+                        }
+                    },
+                    error: function () {
+                        alert("CEP em formato inválido.");
+                    }
+                });
+            }
+        });
+    })
+</script>
+

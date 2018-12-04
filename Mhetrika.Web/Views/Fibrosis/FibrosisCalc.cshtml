@@ -1,0 +1,253 @@
+﻿@model  Mhetrika.Web.ViewModels.FibrosisCalcViewModel
+
+@{
+    ViewData["Title"] = "Calculadora de Risco";
+}
+
+<div>
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-6 text-center">
+        <img src="@Url.Content("~/Content/Images/logo-fib.png")">
+        <h2>Calculadora</h2><br>
+    </div>
+    <div class="col-lg-3">
+    </div>
+</div>
+<div>
+    <div class="col-lg-4">
+    </div>
+    <div class="col-lg-4">
+        @using (Html.BeginForm(actionName: "Calcular", controllerName: "Home"))
+        {
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="AST">
+            </div>
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.EditorFor(model => model.Fibrosis.AST, new { htmlAttributes = new { @class = "form-control", @placeholder = "AST" } })
+                @*@Html.ValidationMessageFor(model => model.PacienteDados.AST, "", new { @class = "text-danger" })*@
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Fibrosis.ALT, new { htmlAttributes = new { @class = "form-control", @placeholder = "ALT" } })
+                @*@Html.ValidationMessageFor(model => model.PacienteDados.ALT, "", new { @class = "text-danger" })*@
+            </div>
+            <div class="form-group input-group">
+                @Html.EditorFor(model => model.Fibrosis.IMC, new { htmlAttributes = new { @class = "form-control", @placeholder = "IMC" } })
+                @*@Html.ValidationMessageFor(model => model.PacienteDados.IMC, "", new { @class = "text-danger" })*@
+                <span class="input-group-btn">
+                    <button id="ImcButton" class="btn btn-success" type="button">Calcular IMC</button>
+                </span>
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Fibrosis.Age, new { htmlAttributes = new { @class = "form-control", @placeholder = "IDADE" } })
+                @*@Html.ValidationMessageFor(model => model.PacienteDados.Idade, "", new { @class = "text-danger" })*@
+            </div>
+
+            <div class="form-group">
+                @Html.EditorFor(model => model.Fibrosis.Platelets, new { htmlAttributes = new { @class = "form-control", @placeholder = "PLAQUETAS" } })
+                @*@Html.ValidationMessageFor(model => model.PacienteDados.Plaquetas, "", new { @class = "text-danger" })*@
+            </div>
+            <div class="form-group">
+                @Html.EditorFor(model => model.Fibrosis.Albumin, new { htmlAttributes = new { @class = "form-control", @placeholder = "ALBUMINA" } })
+                @*@Html.ValidationMessageFor(model => model.PacienteDados.Albumina, "", new { @class = "text-danger" })*@
+            </div>
+            <div class="form-group">
+                <label class="diab"><b> Diabético? </b></label>
+                @Html.EditorFor(model => model.Fibrosis.Diabetic, new { htmlAttributes = new { @type = "checkbox" } })
+            </div>
+            <button type="submit" id="Calcular" class="btn btn-sample pull-right">Calcular   <i class="fas fa-calculator"></i></button>
+        }
+    </div>
+    <div class="col-lg-4">
+    </div>
+
+</div>
+
+@*modal de resultado*@
+<div class="modal fade" id="ResultadosModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">Resultados</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="row">
+                        <div class="col-8" id="resultados">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Cálculo</th>
+                                        <th scope="col">Score</th>
+                                        <th scope="col">Observação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @*@if (Model.PacienteDados.ListaIndices != null)
+                                    {
+                                        foreach (var indice in Model.PacienteDados.ListaIndices)
+                                        {
+                                            <tr>
+                                                <td id="Calculo">@indice.Titulo</td>
+                                                <td id="Score">@indice.Score</td>
+                                            </tr>
+
+                                        }
+                                    }*@
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                <button id="Salvar" class="btn btn-success">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*fim do modal de resultado*@
+
+@*modal de IMC*@
+<div class="modal fade" id="ImcModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">Índice de Massa Corporal (IMC)</h4>
+                <div>Medida de gordura corporal em adultos</div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div>Altura</div>
+                    <div>
+                        <input id="altura" type="number" />
+                        <span>cm</span>
+                    </div>
+                </div>
+                <div>
+                    <div>Peso</div>
+                    <div>
+                        <input id="peso" type="number" />
+                        <span>kg</span>
+                    </div>
+                </div>
+                <div>
+                    <h2><span id="Imc">--.-</span></h2>
+                </div>
+                <button id="fechaImc" class="btn btn-success" type="button" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@*fim do modal de imc*@
+
+@*<input type="hidden" id="calculado" value="@(Model.Calculado ? "1" : "0")" />*@
+
+@section Scripts
+    {
+    <script>
+
+            $(document).ready(function () {
+
+                if ($("#calculado").val() == 0) {
+                    Limpar();
+                }
+
+                //Exibe modal com os cálculos de cada índice
+                if ($('#calculado').val() == '1') {
+                    $('#ResultadosModal').modal('show');
+                }
+
+                //Limpa todo o form
+                $("#Limpar").click(function () {
+                    Limpar();
+                })
+
+                //Exibe modal para calcular o IMC
+                $("#ImcButton").click(function () {
+                    $("#ImcModal").modal("show");
+                });
+
+                //Calcula o IMC sempre que o usuário digitar um número para o peso
+                $("#peso").keyup(function () {
+                    var peso = Number($("#peso").val());
+                    var altura = Number($("#altura").val());
+                    var imc = CalculaImc(peso, altura);
+
+                    $("#Imc").text(imc);
+                });
+
+                //Calcula o IMC sempre que o usuário digitar um número para a altura
+                $("#altura").keyup(function () {
+                    var peso = Number($("#peso").val());
+                    var altura = Number($("#altura").val());
+                    var imc = CalculaImc(peso, altura);
+
+                    $("#Imc").text(imc);
+                });
+
+                //Pega o resultado do IMC e insere no campo de IMC
+                $("#fechaImc").click(function () {
+                    var x = Number($("#Imc").text());
+
+                    if (x > 0) {
+                        $("#PacienteDados_IMC").val(x);
+                    }
+
+                    $("#peso").val("");
+                    $("#altura").val("");
+                    $("#Imc").text("--.-");
+                })
+
+                //Evento de click que salva os índices
+                $("#Salvar").click(function () {
+                    //Montagem do objeto
+                    var pacienteView = {
+                        Nome: "Jovelina",
+                        PacienteDados: {
+                            AST: $("#PacienteDados_AST").val(),
+                            ALT: $("#PacienteDados_ALT").val(),
+                            IMC: $("#PacienteDados_IMC").val(),
+                            Idade: $("#PacienteDados_Idade").val(),
+                            Plaquetas: $("#PacienteDados_Plaquetas").val(),
+                            Albumina: $("#PacienteDados_Albumina").val(),
+                            Diabetico: $("#PacienteDados_Diabetico").val()
+                        }
+                    }
+
+                    //Ajax que salva os índices
+                    $.post("/Home/Create", {
+                        pacienteView
+                    });
+                })
+
+            })
+
+            function CalculaImc(peso, altura) {
+
+                peso = peso || 0;
+                altura = altura / 100 || 0;
+
+                var imc = peso / (altura * altura);
+
+                return imc.toFixed(1);
+            }
+
+            function Limpar() {
+                $("#PacienteDados_AST").val("");
+                $("#PacienteDados_ALT").val("");
+                $("#PacienteDados_IMC").val("");
+                $("#PacienteDados_Idade").val("");
+                $("#PacienteDados_Plaquetas").val("");
+                $("#PacienteDados_Albumina").val("");
+                $("#PacienteDados_Diabetico").val("false");
+            }
+
+    </script>
+}
+

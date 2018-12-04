@@ -13,8 +13,4 @@
     <ProjectReference Include="..\mhetrika.core\mhetrika.core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

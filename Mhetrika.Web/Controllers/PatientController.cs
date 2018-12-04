@@ -3,6 +3,7 @@ using mhetrika.core.Entities;
 using mhetrika.Infrastructure.Repository;
 using Mhetrika.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Mhetrika.Web.Controllers
 {
@@ -12,7 +13,9 @@ namespace Mhetrika.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var patients = patientRepository.GetAll().ToList();
+
+            return View(patients);
         }
 
         public ActionResult New()

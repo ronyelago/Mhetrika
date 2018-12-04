@@ -29,6 +29,7 @@ namespace mhetrika.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new FibrosisMap());
             modelBuilder.ApplyConfiguration(new MedicamentMap());
             modelBuilder.ApplyConfiguration(new QuizMap());
+            modelBuilder.ApplyConfiguration(new ResponseMap());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

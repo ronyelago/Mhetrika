@@ -11,7 +11,8 @@ namespace mhetrika.Infrastructure.Data.Mappings
             builder.ToTable("Results");
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Description)
-                .HasColumnType("varchar(8)");
+                .HasColumnType("varchar(8)")
+                .IsRequired();
         }
     }
 }

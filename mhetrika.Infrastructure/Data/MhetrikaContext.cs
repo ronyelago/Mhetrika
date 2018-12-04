@@ -30,6 +30,7 @@ namespace mhetrika.Infrastructure.Data
             modelBuilder.ApplyConfiguration(new MedicamentMap());
             modelBuilder.ApplyConfiguration(new QuizMap());
             modelBuilder.ApplyConfiguration(new ResponseMap());
+            modelBuilder.ApplyConfiguration(new ResultMap());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

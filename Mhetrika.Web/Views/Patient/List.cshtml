@@ -32,10 +32,17 @@
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ })
+                <input type="button" value="Novo Exame" id="btnNewExam"/>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<script>
+    $(document).ready(function () {
+        $("#btnNewExam").click(function () {
+
+            
+        });
+     });
+</script>

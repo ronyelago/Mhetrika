@@ -10,6 +10,8 @@ namespace Mhetrika.Web.ViewModels
         private DateTime creationDate;
         private DateTime modifiedDate;
 
+        public int Id { get; set; }
+
         [MaxLength(150, ErrorMessage = "Máximo de 150 caracteres")]
         [DisplayName("Nome")]
         [Required(ErrorMessage = "Este campo é obrigatório")]

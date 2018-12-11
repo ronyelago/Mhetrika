@@ -32,7 +32,7 @@
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
-                <input type="button" value="Novo Exame" id="btnNewExam"/>
+                @Url.Action("ChooseTest")
             </td>
         </tr>
 }

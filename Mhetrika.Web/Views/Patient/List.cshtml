@@ -32,7 +32,7 @@
                 @Html.DisplayFor(modelItem => item.Phone)
             </td>
             <td>
-                @Url.Action("ChooseTest")
+                @Html.ActionLink("Novo Exame", "ChooseTest", "Test", new { id = item.Id}, new { style = "text-decoration: none; color: white;", @class = "btn btn-success" })
             </td>
         </tr>
 }

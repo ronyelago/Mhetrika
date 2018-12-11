@@ -4,8 +4,13 @@ namespace Mhetrika.Web.Controllers
 {
     public class TestController : Controller
     {
-        public IActionResult ChooseTest()
+        public IActionResult ChooseTest(int id = 0)
         {
+            if (id != 0)
+            {
+
+            }
+
             return View();
         }
     }

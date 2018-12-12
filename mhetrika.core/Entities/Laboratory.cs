@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace mhetrika.core.Entities
 {
@@ -12,5 +13,6 @@ namespace mhetrika.core.Entities
         public DateTime ModifiedDate { get; set; }
         public int AddresId { get; set; }
         public virtual Address Address { get; set; }
+        public ICollection<Exam> Exams { get; set; }
     }
 }

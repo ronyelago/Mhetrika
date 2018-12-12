@@ -1,10 +1,14 @@
-﻿
+﻿@model Mhetrika.Web.ViewModels.PatientViewModel
+
 @{
     ViewData["Title"] = "Novo Teste";
 }
 
 <h2>Escolha o Teste desejado</h2>
 
-<input type="button" value="Teste de Risco Cardiovascular"/>
-<input type="button" value="Teste de Risco Esteatose" asp-controller="Fibrosis" asp-action="FibrosisCalc"/>
+@if (Model != null)
+{
+    <h3>@Model.Name</h3>
+    @Html.ActionLink("Teste de Risco Esteatose", "FibrosisCalc", "Fibrosis", new { Model.Id }, new { style = "text-decoration: none; color: white;", @class = "btn btn-success" })
+}
 

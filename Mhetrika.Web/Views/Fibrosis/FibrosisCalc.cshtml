@@ -1,7 +1,7 @@
 ﻿@model  Mhetrika.Web.ViewModels.FibrosisCalcViewModel
 
 @{
-    ViewData["Title"] = "Calculadora de Risco";
+    ViewData["Title"] = "Calculadora de Risco - Esteatose";
 }
 
 <div>
@@ -10,6 +10,9 @@
     <div class="col-lg-6 text-center">
         <img src="@Url.Content("~/Content/Images/logo-fib.png")">
         <h2>Calculadora</h2><br>
+        <div class="form-group">
+            <h3>@Model.Name</h3>
+        </div>
     </div>
     <div class="col-lg-3">
     </div>

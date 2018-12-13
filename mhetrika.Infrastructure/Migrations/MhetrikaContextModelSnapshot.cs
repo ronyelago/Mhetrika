@@ -93,9 +93,7 @@ namespace mhetrika.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AddresId");
-
-                    b.Property<int?>("AddressId");
+                    b.Property<int>("AddressId");
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
@@ -343,17 +341,17 @@ namespace mhetrika.Infrastructure.Migrations
             modelBuilder.Entity("mhetrika.core.Entities.Exam", b =>
                 {
                     b.HasOne("mhetrika.core.Entities.Doctor", "Doctor")
-                        .WithMany()
+                        .WithMany("Exams")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("mhetrika.core.Entities.Laboratory", "Laboratory")
-                        .WithMany()
+                        .WithMany("Exams")
                         .HasForeignKey("LaboratoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("mhetrika.core.Entities.Patient", "Patient")
-                        .WithMany()
+                        .WithMany("Exams")
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -362,7 +360,8 @@ namespace mhetrika.Infrastructure.Migrations
                 {
                     b.HasOne("mhetrika.core.Entities.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("mhetrika.core.Entities.Patient", b =>

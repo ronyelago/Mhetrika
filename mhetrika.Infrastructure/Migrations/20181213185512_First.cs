@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace mhetrika.Infrastructure.Migrations
 {
-    public partial class Start : Migration
+    public partial class First : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -88,8 +88,7 @@ namespace mhetrika.Infrastructure.Migrations
                     Email = table.Column<string>(type: "varchar(32)", nullable: false),
                     CreationDate = table.Column<DateTime>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: false),
-                    AddresId = table.Column<int>(nullable: false),
-                    AddressId = table.Column<int>(nullable: true)
+                    AddressId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +98,7 @@ namespace mhetrika.Infrastructure.Migrations
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -135,10 +134,10 @@ namespace mhetrika.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "varchar(32)", nullable: true),
                     PatientId = table.Column<int>(nullable: false),
                     LaboratoryId = table.Column<int>(nullable: false),
                     DoctorId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(type: "varchar(32)", nullable: true),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     Pas = table.Column<int>(nullable: true),
@@ -164,13 +163,13 @@ namespace mhetrika.Infrastructure.Migrations
                         column: x => x.DoctorId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Exams_Laboratories_LaboratoryId",
                         column: x => x.LaboratoryId,
                         principalTable: "Laboratories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Exams_Patients_PatientId",
                         column: x => x.PatientId,

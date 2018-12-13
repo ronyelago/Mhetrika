@@ -11,6 +11,16 @@ namespace mhetrika.Infrastructure.Data.Mappings
             builder.ToTable("Exams");
             builder.HasKey(p => p.Id);
 
+            builder.HasOne(p => p.Laboratory)
+                .WithMany(p => p.Exams)
+                .HasForeignKey(p => p.LaboratoryId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(p => p.Doctor)
+                .WithMany(p => p.Exams)
+                .HasForeignKey(p => p.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Property(p => p.Name)
                 .HasColumnType("varchar(32)");
 

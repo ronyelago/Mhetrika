@@ -1,49 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using mhetrika.core.Entities;
+using mhetrika.Infrastructure.Repository;
+using Mhetrika.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Mhetrika.Web.Models;
-using mhetrika.core.Entities;
+using System.Threading.Tasks;
 
 namespace Mhetrika.Web.Controllers
 {
     public class LaboratoryController : Controller
     {
-        private readonly MhetrikaWebContext _context;
-
-        public LaboratoryController(MhetrikaWebContext context)
-        {
-            _context = context;
-        }
+        private readonly LaboratoryRepository laboratoryRepository = new LaboratoryRepository();
 
         // GET: Laboratory
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var mhetrikaWebContext = _context.Laboratory.Include(l => l.Address);
-            return View(await mhetrikaWebContext.ToListAsync());
+            var laboratories = laboratoryRepository.GetAll();
+
+
+            return View();
         }
 
         public IActionResult Create()
         {
-            ViewData["AddressId"] = new SelectList(_context.Set<Address>(), "Id", "Id");
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Cnpj,Email,CreationDate,ModifiedDate,AddressId")] Laboratory laboratory)
+        public IActionResult Create(NewLaboratoryViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(laboratory);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var laboratory = Mapper.Map<Laboratory>(viewModel);
+                laboratoryRepository.Add(laboratory);
             }
-            ViewData["AddressId"] = new SelectList(_context.Set<Address>(), "Id", "Id", laboratory.AddressId);
-            return View(laboratory);
+            
+            return View("Index");
         }
 
         //// GET: Laboratory/Details/5

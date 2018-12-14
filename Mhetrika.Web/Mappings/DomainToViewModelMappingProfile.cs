@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using mhetrika.core.Entities;
 using Mhetrika.Web.ViewModels;
-using System.Collections.Generic;
 
 namespace Mhetrika.Web.Mappings
 {
@@ -13,6 +12,7 @@ namespace Mhetrika.Web.Mappings
             CreateMap<Address, AddressViewModel>();
             CreateMap<Doctor, DoctorViewModel>();
             CreateMap<Doctor, DoctorListViewModel>();
+            CreateMap<Laboratory, NewLaboratoryViewModel>();
         }
     }
 }

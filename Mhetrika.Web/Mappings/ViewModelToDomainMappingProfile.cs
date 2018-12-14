@@ -12,8 +12,13 @@ namespace Mhetrika.Web.Mappings
                 .ForMember(m => m.Address, opt => opt.MapFrom(v => v.AddressViewModel));
 
             CreateMap<AddressViewModel, Address>();
+
             CreateMap<DoctorViewModel, Doctor>();
+
             CreateMap<DoctorListViewModel, Doctor>();
+
+            CreateMap<NewLaboratoryViewModel, Laboratory>()
+                .ForMember(m => m.Address, opt => opt.MapFrom(v => v.AddressViewModel));
         }
     }
 }

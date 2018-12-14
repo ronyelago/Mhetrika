@@ -20,6 +20,26 @@ namespace Mhetrika.Web.Controllers
             return View(doctorList);
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create([Bind("Crm,Uf,Phone,Specialty,Id,Name,Email,Password")] DoctorViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var doctor = Mapper.Map<Doctor>(viewModel);
+                doctorRepository.Add(doctor);
+
+                return RedirectToAction();
+            }
+
+            return View("Index");
+        }
+
         // GET: Doctor/Details/5
         //public async Task<IActionResult> Details(int? id)
         //{
@@ -37,30 +57,6 @@ namespace Mhetrika.Web.Controllers
 
         //    return View(doctor);
         //}
-
-        // GET: Doctor/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Doctor/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Crm,Uf,Phone,Specialty,Id,Name,Email,Password")] DoctorViewModel viewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                var doctor = Mapper.Map<Doctor>(viewModel);
-                doctorRepository.Add(doctor);
-
-                return RedirectToAction();
-            }
-
-            return View();
-        }
 
         // GET: Doctor/Edit/5
         //public async Task<IActionResult> Edit(int? id)

@@ -39,6 +39,15 @@ namespace Mhetrika.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            var lab = laboratoryRepository.GetById(id);
+            laboratoryRepository.Remove(lab);
+
+            return RedirectToAction("Index");
+        }
+
         //// GET: Laboratory/Details/5
         //public async Task<IActionResult> Details(int? id)
         //{
@@ -109,36 +118,6 @@ namespace Mhetrika.Web.Controllers
         //    }
         //    ViewData["AddressId"] = new SelectList(_context.Set<Address>(), "Id", "Id", laboratory.AddressId);
         //    return View(laboratory);
-        //}
-
-        //// GET: Laboratory/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var laboratory = await _context.Laboratory
-        //        .Include(l => l.Address)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (laboratory == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(laboratory);
-        //}
-
-        //// POST: Laboratory/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var laboratory = await _context.Laboratory.FindAsync(id);
-        //    _context.Laboratory.Remove(laboratory);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
         //}
 
         //private bool LaboratoryExists(int id)

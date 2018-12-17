@@ -40,6 +40,16 @@ namespace Mhetrika.Web.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var doc = doctorRepository.GetById(id);
+
+            doctorRepository.Remove(doc);
+
+            return RedirectToAction("Index");
+        }
+
         // GET: Doctor/Details/5
         //public async Task<IActionResult> Details(int? id)
         //{

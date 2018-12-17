@@ -3,6 +3,7 @@ using mhetrika.core.Entities;
 using mhetrika.Infrastructure.Repository;
 using Mhetrika.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,43 +52,36 @@ namespace Mhetrika.Web.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var 
+            var lab = laboratoryRepository.GetByIdWithAddress(id);
+            var viewModel = Mapper.Map<EditLaboratoryViewModel>(lab);
 
-            return View();
+            return View(viewModel);
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Cnpj,Email,CreationDate,ModifiedDate,AddressId")] Laboratory laboratory)
-        //{
-        //    if (id != laboratory.Id)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditLaboratoryViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var lab = laboratoryRepository.GetByIdWithAddress(id);
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(laboratory);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!LaboratoryExists(laboratory.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["AddressId"] = new SelectList(_context.Set<Address>(), "Id", "Id", laboratory.AddressId);
-        //    return View(laboratory);
-        //}
+                try
+                {
+                    laboratoryRepository.Update(lab);
+                }
+                catch (Exception ex)
+                {
+                    return NotFound();
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View();
+            }
+        }
 
         //private bool LaboratoryExists(int id)
         //{

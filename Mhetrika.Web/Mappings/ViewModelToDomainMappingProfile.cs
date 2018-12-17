@@ -20,6 +20,9 @@ namespace Mhetrika.Web.Mappings
             CreateMap<NewLaboratoryViewModel, Laboratory>()
                 .ForMember(m => m.Address, opt => opt.MapFrom(v => v.AddressViewModel));
 
+            CreateMap<EditLaboratoryViewModel, Laboratory>()
+                .ForMember(m => m.Address, opt => opt.MapFrom(v => v.AddressViewModel));
+
             CreateMap<LaboratoryListViewModel, Laboratory>();
         }
     }

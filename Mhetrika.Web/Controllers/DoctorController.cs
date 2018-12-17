@@ -34,10 +34,10 @@ namespace Mhetrika.Web.Controllers
                 var doctor = Mapper.Map<Doctor>(viewModel);
                 doctorRepository.Add(doctor);
 
-                return RedirectToAction();
+                return RedirectToAction("Index");
             }
 
-            return View("Index");
+            return View(viewModel);
         }
 
         // GET: Doctor/Details/5
@@ -127,7 +127,7 @@ namespace Mhetrika.Web.Controllers
         //    return View(doctor);
         //}
 
-        //// POST: Doctor/Delete/5
+        // POST: Doctor/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> DeleteConfirmed(int id)

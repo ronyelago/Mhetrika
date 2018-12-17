@@ -13,6 +13,7 @@ namespace Mhetrika.Web.Mappings
             CreateMap<Doctor, DoctorViewModel>();
             CreateMap<Doctor, DoctorListViewModel>();
             CreateMap<Laboratory, NewLaboratoryViewModel>();
+            CreateMap<Laboratory, LaboratoryListViewModel>();
         }
     }
 }

@@ -3,9 +3,8 @@ using mhetrika.core.Entities;
 using mhetrika.Infrastructure.Repository;
 using Mhetrika.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Mhetrika.Web.Controllers
 {
@@ -14,30 +13,30 @@ namespace Mhetrika.Web.Controllers
         private readonly LaboratoryRepository laboratoryRepository = new LaboratoryRepository();
 
         // GET: Laboratory
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            var laboratories = laboratoryRepository.GetAll();
+            var laboratories = laboratoryRepository.GetAll().ToList();
+            var viewModel = Mapper.Map<List<LaboratoryListViewModel>>(laboratories);
 
-
-            return View();
+            return View(viewModel);
         }
 
-        public IActionResult Create()
+        public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(NewLaboratoryViewModel viewModel)
+        public ActionResult Create(NewLaboratoryViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
                 var laboratory = Mapper.Map<Laboratory>(viewModel);
                 laboratoryRepository.Add(laboratory);
             }
-            
-            return View("Index");
+
+            return RedirectToAction("Index");
         }
 
         //// GET: Laboratory/Details/5

@@ -48,45 +48,14 @@ namespace Mhetrika.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        //// GET: Laboratory/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var 
 
-        //    var laboratory = await _context.Laboratory
-        //        .Include(l => l.Address)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (laboratory == null)
-        //    {
-        //        return NotFound();
-        //    }
+            return View();
+        }
 
-        //    return View(laboratory);
-        //}
-
-        //// GET: Laboratory/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var laboratory = await _context.Laboratory.FindAsync(id);
-        //    if (laboratory == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["AddressId"] = new SelectList(_context.Set<Address>(), "Id", "Id", laboratory.AddressId);
-        //    return View(laboratory);
-        //}
-
-        //// POST: Laboratory/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Cnpj,Email,CreationDate,ModifiedDate,AddressId")] Laboratory laboratory)

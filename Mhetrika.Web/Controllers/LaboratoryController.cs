@@ -66,10 +66,12 @@ namespace Mhetrika.Web.Controllers
             if (ModelState.IsValid)
             {
                 var lab = Mapper.Map<Laboratory>(viewModel);
+                var address = Mapper.Map<Address>(viewModel.AddressViewModel);
 
                 try
                 {
                     laboratoryRepository.Update(lab);
+                    addressRepository.Update(address);
                 }
                 catch (Exception ex)
                 {

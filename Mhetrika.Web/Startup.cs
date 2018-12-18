@@ -69,7 +69,7 @@ namespace Mhetrika.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Test}/{action=ChooseTest}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -12,6 +12,7 @@ namespace Mhetrika.Web.Controllers
     public class LaboratoryController : Controller
     {
         private readonly LaboratoryRepository laboratoryRepository = new LaboratoryRepository();
+        private readonly AddressRepository addressRepository = new AddressRepository();
 
         // GET: Laboratory
         public ActionResult Index()

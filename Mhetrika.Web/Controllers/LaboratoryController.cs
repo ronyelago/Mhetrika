@@ -60,11 +60,11 @@ namespace Mhetrika.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(EditLaboratoryViewModel)
+        public ActionResult Edit(EditLaboratoryViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                var lab = laboratoryRepository.GetByIdWithAddress(id);
+                var lab = Mapper.Map<Laboratory>(viewModel);
 
                 try
                 {

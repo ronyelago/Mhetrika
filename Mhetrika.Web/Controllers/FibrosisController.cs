@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using mhetrika.core.Entities;
-using mhetrika.Infrastructure.Repository;
+﻿using mhetrika.Infrastructure.Repository;
 using Mhetrika.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,20 +8,13 @@ namespace Mhetrika.Web.Controllers
     {
         readonly PatientRepository patientRepository = new PatientRepository();
 
-        public IActionResult FibrosisCalc(int id)
+        public ActionResult FibrosisCalc(int id)
         {
             var patient = patientRepository.GetById(id);
 
-            var viewModel = new FibrosisCalcViewModel
+            var viewModel = new FibrosisViewModel
             {
-                Id = patient.Id,
-                Name = patient.Name,
-                BirthDate = patient.BirthDate,
-                Fibrosis = new Fibrosis
-                {
-                    Name = "Esteatose",
-                    
-                }
+
             };
 
             return View(viewModel);

@@ -1,4 +1,4 @@
-﻿@model  Mhetrika.Web.ViewModels.FibrosisCalcViewModel
+﻿@model  Mhetrika.Web.ViewModels.FibrosisViewModel
 
 @{
     ViewData["Title"] = "Calculadora de Risco - Esteatose";
@@ -8,8 +8,7 @@
     <div class="col-lg-3">
     </div>
     <div class="col-lg-6 text-center">
-        <img src="@Url.Content("~/Content/Images/logo-fib.png")">
-        <h2>Calculadora</h2><br>
+        <img src="@Url.Content("~/images/logo-fib.png")">
         <div class="form-group">
             <h3>@Model.Name</h3>
         </div>
@@ -29,36 +28,37 @@
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                @Html.EditorFor(model => model.Fibrosis.AST, new { htmlAttributes = new { @class = "form-control", @placeholder = "AST" } })
+                
+                <input asp-for="AST" class="form-control" placeholder="AST" />
                 @*@Html.ValidationMessageFor(model => model.PacienteDados.AST, "", new { @class = "text-danger" })*@
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Fibrosis.ALT, new { htmlAttributes = new { @class = "form-control", @placeholder = "ALT" } })
+                @Html.EditorFor(model => model.ALT, new { htmlAttributes = new { @class = "form-control", @placeholder = "ALT" } })
                 @*@Html.ValidationMessageFor(model => model.PacienteDados.ALT, "", new { @class = "text-danger" })*@
             </div>
             <div class="form-group input-group">
-                @Html.EditorFor(model => model.Fibrosis.IMC, new { htmlAttributes = new { @class = "form-control", @placeholder = "IMC" } })
+                @Html.EditorFor(model => model.IMC, new { htmlAttributes = new { @class = "form-control", @placeholder = "IMC" } })
                 @*@Html.ValidationMessageFor(model => model.PacienteDados.IMC, "", new { @class = "text-danger" })*@
                 <span class="input-group-btn">
                     <button id="ImcButton" class="btn btn-success" type="button">Calcular IMC</button>
                 </span>
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Fibrosis.Age, new { htmlAttributes = new { @class = "form-control", @placeholder = "IDADE" } })
+                @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", @placeholder = "IDADE" } })
                 @*@Html.ValidationMessageFor(model => model.PacienteDados.Idade, "", new { @class = "text-danger" })*@
             </div>
 
             <div class="form-group">
-                @Html.EditorFor(model => model.Fibrosis.Platelets, new { htmlAttributes = new { @class = "form-control", @placeholder = "PLAQUETAS" } })
+                @Html.EditorFor(model => model.Platelets, new { htmlAttributes = new { @class = "form-control", @placeholder = "PLAQUETAS" } })
                 @*@Html.ValidationMessageFor(model => model.PacienteDados.Plaquetas, "", new { @class = "text-danger" })*@
             </div>
             <div class="form-group">
-                @Html.EditorFor(model => model.Fibrosis.Albumin, new { htmlAttributes = new { @class = "form-control", @placeholder = "ALBUMINA" } })
+                @Html.EditorFor(model => model.Albumin, new { htmlAttributes = new { @class = "form-control", @placeholder = "ALBUMINA" } })
                 @*@Html.ValidationMessageFor(model => model.PacienteDados.Albumina, "", new { @class = "text-danger" })*@
             </div>
             <div class="form-group">
                 <label class="diab"><b> Diabético? </b></label>
-                @Html.EditorFor(model => model.Fibrosis.Diabetic, new { htmlAttributes = new { @type = "checkbox" } })
+                @Html.EditorFor(model => model.Diabetic, new { htmlAttributes = new { @type = "checkbox" } })
             </div>
             <button type="submit" id="Calcular" class="btn btn-sample pull-right">Calcular   <i class="fas fa-calculator"></i></button>
         }

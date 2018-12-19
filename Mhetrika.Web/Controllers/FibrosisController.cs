@@ -12,12 +12,7 @@ namespace Mhetrika.Web.Controllers
         {
             var patient = patientRepository.GetById(id);
 
-            var viewModel = new FibrosisViewModel
-            {
-
-            };
-
-            return View(viewModel);
+            return View();
         }
     }
 }

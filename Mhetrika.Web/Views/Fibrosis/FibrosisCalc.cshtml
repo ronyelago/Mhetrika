@@ -54,13 +54,12 @@
             </div>
             <div class="form-group">
                 <label class="diab"><b> Diabético? </b></label>
-                @Html.EditorFor(model => model.Diabetic, new { htmlAttributes = new { @type = "checkbox" } })
+                <input type="checkbox" asp-for="Diabetic" />
             </div>
-            <button type="submit" id="Calcular" class="btn btn-sample pull-right">Calcular   <i class="fas fa-calculator"></i></button>
+            <button type="button" id="btnCalcular" class="btn btn-sample pull-right">Calcular   <i class="fas fa-calculator"></i></button>
         }
     </div>
-    <div class="col-lg-4">
-    </div>
+    <div class="col-lg-4"></div>
 
 </div>
 
@@ -144,8 +143,6 @@
 </div>
 @*fim do modal de imc*@
 
-@*<input type="hidden" id="calculado" value="@(Model.Calculado ? "1" : "0")" />*@
-
 @section Scripts
     {
     <script>
@@ -158,7 +155,7 @@
 
                 //Exibe modal com os cálculos de cada índice
                 if ($('#calculado').val() == '1') {
-                    $('#ResultadosModal').modal('show');
+                    $('#ResultadosModal').modal('show')
                 }
 
                 //Limpa todo o form
@@ -168,7 +165,7 @@
 
                 //Exibe modal para calcular o IMC
                 $("#ImcButton").click(function () {
-                    $("#ImcModal").modal("show");
+                    $('#ImcModal').modal('show');
                 });
 
                 //Calcula o IMC sempre que o usuário digitar um número para o peso
@@ -194,7 +191,7 @@
                     var x = Number($("#Imc").text());
 
                     if (x > 0) {
-                        $("#PacienteDados_IMC").val(x);
+                        $("#IMC").val(x);
                     }
 
                     $("#peso").val("");
@@ -226,25 +223,44 @@
 
             })
 
-            function CalculaImc(peso, altura) {
+        function CalculaImc(peso, altura) {
 
-                peso = peso || 0;
-                altura = altura / 100 || 0;
+            peso = peso || 0;
+            altura = altura / 100 || 0;
 
-                var imc = peso / (altura * altura);
+            var imc = peso / (altura * altura);
 
-                return imc.toFixed(1);
+            return imc.toFixed(1);
+        }
+
+        function CalculeBard(imc, ast, alt, diabetic) {
+
+            var bard = 0;
+
+            if (imc >= 28) {
+                bard += 1;
             }
 
-            function Limpar() {
-                $("#PacienteDados_AST").val("");
-                $("#PacienteDados_ALT").val("");
-                $("#PacienteDados_IMC").val("");
-                $("#PacienteDados_Idade").val("");
-                $("#PacienteDados_Plaquetas").val("");
-                $("#PacienteDados_Albumina").val("");
-                $("#PacienteDados_Diabetico").val("false");
+            if (ast / alt >= 0.8) {
+                bard += 2;
             }
+
+            if (diabetic) {
+                bard += 1;
+            }
+
+            return bard;
+        }
+
+        function Limpar() {
+            $("#PacienteDados_AST").val("");
+            $("#PacienteDados_ALT").val("");
+            $("#PacienteDados_IMC").val("");
+            $("#PacienteDados_Idade").val("");
+            $("#PacienteDados_Plaquetas").val("");
+            $("#PacienteDados_Albumina").val("");
+            $("#PacienteDados_Diabetico").val("false");
+        }
 
     </script>
 }

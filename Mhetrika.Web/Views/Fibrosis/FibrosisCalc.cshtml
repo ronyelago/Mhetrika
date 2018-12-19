@@ -10,7 +10,7 @@
     <div class="col-lg-6 text-center">
         <img src="@Url.Content("~/images/logo-fib.png")">
         <div class="form-group">
-            @*<h3>@Model.Name</h3>*@
+            <h3>@Model.PatientName</h3>
         </div>
     </div>
     <div class="col-lg-3">
@@ -149,9 +149,7 @@
 
             $(document).ready(function () {
 
-                if ($("#calculado").val() == 0) {
-                    Limpar();
-                }
+                Clear();
 
                 //Exibe modal com os cálculos de cada índice
                 if ($('#calculado').val() == '1') {
@@ -252,14 +250,14 @@
             return bard;
         }
 
-        function Limpar() {
-            $("#PacienteDados_AST").val("");
-            $("#PacienteDados_ALT").val("");
-            $("#PacienteDados_IMC").val("");
-            $("#PacienteDados_Idade").val("");
-            $("#PacienteDados_Plaquetas").val("");
-            $("#PacienteDados_Albumina").val("");
-            $("#PacienteDados_Diabetico").val("false");
+        function Clear() {
+            $("#AST").val("");
+            $("#ALT").val("");
+            $("#IMC").val("");
+            $("#Age").val("");
+            $("#Platelets").val("");
+            $("#Albumin").val("");
+            $("#PDiabetic").val("false");
         }
 
     </script>

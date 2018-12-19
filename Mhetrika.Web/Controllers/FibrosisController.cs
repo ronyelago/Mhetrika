@@ -13,7 +13,8 @@ namespace Mhetrika.Web.Controllers
         public IActionResult FibrosisCalc(int id)
         {
             var patient = patientRepository.GetById(id);
-            var model = new FibrosisCalcViewModel
+
+            var viewModel = new FibrosisCalcViewModel
             {
                 Id = patient.Id,
                 Name = patient.Name,
@@ -25,7 +26,7 @@ namespace Mhetrika.Web.Controllers
                 }
             };
 
-            return View(model);
+            return View(viewModel);
         }
     }
 }

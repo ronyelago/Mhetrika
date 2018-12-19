@@ -78,22 +78,17 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Cálculo</th>
+                                        <th scope="col">Índice</th>
                                         <th scope="col">Score</th>
                                         <th scope="col">Observação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @*@if (Model.PacienteDados.ListaIndices != null)
-                                    {
-                                        foreach (var indice in Model.PacienteDados.ListaIndices)
-                                        {
-                                            <tr>
-                                                <td id="Calculo">@indice.Titulo</td>
-                                                <td id="Score">@indice.Score</td>
-                                            </tr>
-                                        }
-                                    }*@
+                                    <tr>
+                                        <td id="bardIndex">Bard</td>
+                                        <td id="scoreBard"></td>
+                                        <td id="obsBard"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -152,13 +147,19 @@
                 Clear();
 
                 //Exibe modal com os cálculos de cada índice
-                if ($('#calculado').val() == '1') {
-                    $('#ResultadosModal').modal('show')
-                }
+                $('#btnCalcular').click(function () {
 
-                //Limpa todo o form
-                $("#Limpar").click(function () {
-                    Limpar();
+                    var imc = Number($('#IMC').val());
+                    var ast = Number($('#AST').val());
+                    var alt = Number($('#ALT').val());
+                    var diabetic = $('#Diabetic').val();
+
+                    var bard = CalculeBard(imc, ast, alt, diabetic);
+
+                    $('#bardIndex').text(bard);
+
+
+                    $('#ResultadosModal').modal('show');
                 })
 
                 //Exibe modal para calcular o IMC

@@ -85,9 +85,14 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td id="bardIndex">Bard</td>
-                                        <td id="scoreBard"></td>
-                                        <td id="obsBard"></td>
+                                        <td>BARD</td>
+                                        <td id="bardScore"></td>
+                                        <td id="bardObs"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>APRI</td>
+                                        <td id="apriScore"></td>
+                                        <td id="apriObs"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -152,12 +157,14 @@
                 var imc = Number($('#IMC').val());
                 var ast = Number($('#AST').val());
                 var alt = Number($('#ALT').val());
+                var platelets = Number($('#Platelets').val());
                 var diabetic = Verify();
 
                 var bard = CalculeBard(imc, ast, alt, diabetic);
+                var apri = CalculeApri(ast, platelets);
 
-                $('#bardIndex').text(bard);
-
+                $('#bardScore').text(bard);
+                $('#apriScore').text(apri);
 
                 $('#ResultadosModal').modal('show');
             })

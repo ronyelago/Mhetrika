@@ -142,85 +142,85 @@
     {
     <script>
 
-            $(document).ready(function () {
+        $(document).ready(function () {
 
-                Clear();
+            Clear();
 
-                //Exibe modal com os cálculos de cada índice
-                $('#btnCalcular').click(function () {
+            //Exibe modal com os cálculos de cada índice
+            $('#btnCalcular').click(function () {
 
-                    var imc = Number($('#IMC').val());
-                    var ast = Number($('#AST').val());
-                    var alt = Number($('#ALT').val());
-                    var diabetic = $('#Diabetic').val();
+                var imc = Number($('#IMC').val());
+                var ast = Number($('#AST').val());
+                var alt = Number($('#ALT').val());
+                var diabetic = Verify();
 
-                    var bard = CalculeBard(imc, ast, alt, diabetic);
+                var bard = CalculeBard(imc, ast, alt, diabetic);
 
-                    $('#bardIndex').text(bard);
+                $('#bardIndex').text(bard);
 
 
-                    $('#ResultadosModal').modal('show');
-                })
-
-                //Exibe modal para calcular o IMC
-                $("#ImcButton").click(function () {
-                    $('#ImcModal').modal('show');
-                });
-
-                //Calcula o IMC sempre que o usuário digitar um número para o peso
-                $("#peso").keyup(function () {
-                    var peso = Number($("#peso").val());
-                    var altura = Number($("#altura").val());
-                    var imc = CalculaImc(peso, altura);
-
-                    $("#Imc").text(imc);
-                });
-
-                //Calcula o IMC sempre que o usuário digitar um número para a altura
-                $("#altura").keyup(function () {
-                    var peso = Number($("#peso").val());
-                    var altura = Number($("#altura").val());
-                    var imc = CalculaImc(peso, altura);
-
-                    $("#Imc").text(imc);
-                });
-
-                //Pega o resultado do IMC e insere no campo de IMC
-                $("#fechaImc").click(function () {
-                    var x = Number($("#Imc").text());
-
-                    if (x > 0) {
-                        $("#IMC").val(x);
-                    }
-
-                    $("#peso").val("");
-                    $("#altura").val("");
-                    $("#Imc").text("--.-");
-                })
-
-                //Evento de click que salva os índices
-                $("#Salvar").click(function () {
-                    //Montagem do objeto
-                    var pacienteView = {
-                        Nome: "Jovelina",
-                        PacienteDados: {
-                            AST: $("#PacienteDados_AST").val(),
-                            ALT: $("#PacienteDados_ALT").val(),
-                            IMC: $("#PacienteDados_IMC").val(),
-                            Idade: $("#PacienteDados_Idade").val(),
-                            Plaquetas: $("#PacienteDados_Plaquetas").val(),
-                            Albumina: $("#PacienteDados_Albumina").val(),
-                            Diabetico: $("#PacienteDados_Diabetico").val()
-                        }
-                    }
-
-                    //Ajax que salva os índices
-                    $.post("/Home/Create", {
-                        pacienteView
-                    });
-                })
-
+                $('#ResultadosModal').modal('show');
             })
+
+            //Exibe modal para calcular o IMC
+            $("#ImcButton").click(function () {
+                $('#ImcModal').modal('show');
+            });
+
+            //Calcula o IMC sempre que o usuário digitar um número para o peso
+            $("#peso").keyup(function () {
+                var peso = Number($("#peso").val());
+                var altura = Number($("#altura").val());
+                var imc = CalculaImc(peso, altura);
+
+                $("#Imc").text(imc);
+            });
+
+            //Calcula o IMC sempre que o usuário digitar um número para a altura
+            $("#altura").keyup(function () {
+                var peso = Number($("#peso").val());
+                var altura = Number($("#altura").val());
+                var imc = CalculaImc(peso, altura);
+
+                $("#Imc").text(imc);
+            });
+
+            //Pega o resultado do IMC e insere no campo de IMC
+            $("#fechaImc").click(function () {
+                var x = Number($("#Imc").text());
+
+                if (x > 0) {
+                    $("#IMC").val(x);
+                }
+
+                $("#peso").val("");
+                $("#altura").val("");
+                $("#Imc").text("--.-");
+            })
+
+            //Evento de click que salva os índices
+            $("#Salvar").click(function () {
+                //Montagem do objeto
+                var pacienteView = {
+                    Nome: "Jovelina",
+                    PacienteDados: {
+                        AST: $("#PacienteDados_AST").val(),
+                        ALT: $("#PacienteDados_ALT").val(),
+                        IMC: $("#PacienteDados_IMC").val(),
+                        Idade: $("#PacienteDados_Idade").val(),
+                        Plaquetas: $("#PacienteDados_Plaquetas").val(),
+                        Albumina: $("#PacienteDados_Albumina").val(),
+                        Diabetico: $("#PacienteDados_Diabetico").val()
+                    }
+                }
+
+                //Ajax que salva os índices
+                $.post("/Home/Create", {
+                    pacienteView
+                });
+            })
+
+        })
 
         function CalculaImc(peso, altura) {
 
@@ -249,6 +249,20 @@
             }
 
             return bard;
+        }
+
+        function CalculeApri(ast, platelets) {
+
+            return Math.round((ast / 35) * 100 / (platelets) * 100) / 100;
+        }
+
+        function Verify() {
+
+            if ($('#Diabetic').is(':checked')) {
+                return true;
+            }
+
+            return false;
         }
 
         function Clear() {

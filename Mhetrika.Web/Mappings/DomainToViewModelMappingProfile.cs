@@ -22,6 +22,8 @@ namespace Mhetrika.Web.Mappings
 
             CreateMap<Laboratory, EditLaboratoryViewModel>()
                 .ForMember(m => m.AddressViewModel, opt => opt.MapFrom(d => d.Address));
+
+            CreateMap<Fibrosis, FibrosisViewModel>();
         }
     }
 }

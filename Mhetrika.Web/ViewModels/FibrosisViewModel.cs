@@ -20,6 +20,6 @@ namespace Mhetrika.Web.ViewModels
         public double Platelets { get; set; }
         public double Albumin { get; set; }
         public bool Diabetic { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime CreationDate { get { return DateTime.Now; }}
     }
 }

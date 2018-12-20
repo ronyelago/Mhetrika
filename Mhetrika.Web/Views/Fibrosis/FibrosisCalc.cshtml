@@ -21,10 +21,12 @@
     </div>
     <div class="col-lg-4">
         @using (Html.BeginForm(actionName: "Calcular", controllerName: "Home"))
-        {            
+        {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            
+
+            <input type="hidden" asp-for="PatientId" />
+            <input type="hidden" asp-for="Name" />
             <div class="form-group">
                 <input asp-for="AST" class="form-control" placeholder="AST" />
                 <span asp-validation-for="AST" class="text-danger"></span>
@@ -85,14 +87,14 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>BARD</td>
-                                        <td id="bardScore"></td>
-                                        <td id="bardObs"></td>
-                                    </tr>
-                                    <tr>
                                         <td>APRI</td>
                                         <td id="apriScore"></td>
                                         <td id="apriObs"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>BARD</td>
+                                        <td id="bardScore"></td>
+                                        <td id="bardObs"></td>
                                     </tr>
                                     <tr>
                                         <td>FIB4</td>
@@ -112,7 +114,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                <button id="Salvar" class="btn btn-success">Salvar</button>
+                <button id="btnSalvar" class="btn btn-success">Salvar</button>
             </div>
         </div>
     </div>
@@ -224,7 +226,7 @@
             //Evento de click que salva os índices
             $("#Salvar").click(function () {
                 //Montagem do objeto
-                var pacienteView = {
+                var viewModel = {
                     Nome: "Jovelina",
                     PacienteDados: {
                         AST: $("#PacienteDados_AST").val(),
@@ -236,12 +238,34 @@
                         Diabetico: $("#PacienteDados_Diabetico").val()
                     }
                 }
-
                 //Ajax que salva os índices
                 $.post("/Home/Create", {
                     pacienteView
                 });
             })
+
+            //**************************************************************************************************
+            $('#btnSalvar').click(function () {
+
+                var viewModel = {
+                    PatientId: $('#PatientId').val(),
+                    Name: $('#Name').val(),
+                    Age: Number($('#Age').val()),
+                    AST: Number($('#AST').val()),
+                    ALT: Number($('#ALT').val()),
+                    IMC: Number($('#IMC').val()),
+                    Platelets: Number($('#Platelets').val()),
+                    Albumin: Number($('#Albumin').val()),
+                    Diabetic: Verify()
+                }
+
+                $.post('/Fibrosis/Save', {
+                    viewModel
+                })
+            })
+
+
+
         })
 
         function CalculaImc(peso, altura) {

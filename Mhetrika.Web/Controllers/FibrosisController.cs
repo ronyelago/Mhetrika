@@ -21,6 +21,11 @@ namespace Mhetrika.Web.Controllers
             return View(viewModel);
         }
 
-        
+        public ActionResult Save(FibrosisViewModel viewModel)
+        {
+
+
+            return RedirectToAction("List", "Patient");
+        }
     }
 }

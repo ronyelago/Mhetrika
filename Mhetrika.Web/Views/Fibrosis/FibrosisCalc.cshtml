@@ -94,6 +94,11 @@
                                         <td id="apriScore"></td>
                                         <td id="apriObs"></td>
                                     </tr>
+                                    <tr>
+                                        <td>FIB4</td>
+                                        <td id="fib4Score"></td>
+                                        <td id="fib4Obs"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -158,14 +163,16 @@
                 var ast = Number($('#AST').val());
                 var alt = Number($('#ALT').val());
                 var platelets = Number($('#Platelets').val());
+                var age = Number($('#Age').val());
                 var diabetic = Verify();
 
                 var bard = CalculeBard(imc, ast, alt, diabetic);
                 var apri = CalculeApri(ast, platelets);
+                var fib4 = CalculeFib4(age, ast, platelets, alt);
                 
-
                 $('#bardScore').text(bard);
                 $('#apriScore').text(apri);
+                $('#fib4Score').text(fib4);
 
                 $('#ResultadosModal').modal('show');
             })
@@ -227,7 +234,6 @@
                     pacienteView
                 });
             })
-
         })
 
         function CalculaImc(peso, altura) {

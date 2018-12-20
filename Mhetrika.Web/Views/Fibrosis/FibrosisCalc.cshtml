@@ -162,6 +162,7 @@
 
                 var bard = CalculeBard(imc, ast, alt, diabetic);
                 var apri = CalculeApri(ast, platelets);
+                
 
                 $('#bardScore').text(bard);
                 $('#apriScore').text(apri);
@@ -263,6 +264,12 @@
             return Math.round((ast / 35) * 100 / (platelets) * 100) / 100;
         }
 
+        function CalculeFib4(age, ast, platelets, alt) {
+
+            return Math.round((age * ast) / ((platelets) * Math.sqrt(alt)), 2);
+        }
+
+        //Checa se a checkbox Diabético? está marcada(true) ou não(false)
         function Verify() {
 
             if ($('#Diabetic').is(':checked')) {
@@ -272,6 +279,7 @@
             return false;
         }
 
+        //Limpa a porra toda
         function Clear() {
             $("#AST").val("");
             $("#ALT").val("");

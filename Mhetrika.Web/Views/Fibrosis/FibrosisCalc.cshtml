@@ -20,49 +20,42 @@
     <div class="col-lg-4">
     </div>
     <div class="col-lg-4">
-        @using (Html.BeginForm(actionName: "Calcular", controllerName: "Home"))
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-            <input type="hidden" asp-for="PatientId" />
-            <input type="hidden" asp-for="Name" />
-            <div class="form-group">
-                <input asp-for="AST" class="form-control" placeholder="AST" />
-                <span asp-validation-for="AST" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="ALT" class="form-control" placeholder="ALT" />
-                <span asp-validation-for="ALT" class="text-danger"></span>
-            </div>
-            <div class="form-group input-group">
-                <input asp-for="IMC" class="form-control" placeholder="IMC" />
-                <span asp-validation-for="IMC" class="text-danger"></span>
-                <span class="input-group-btn">
-                    <button id="ImcButton" class="btn btn-success" type="button">Calcular IMC</button>
-                </span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Age" class="form-control" placeholder="IDADE" />
-                <span asp-validation-for="Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Platelets" class="form-control" placeholder="PLAQUETAS" />
-                <span asp-validation-for="Platelets" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input asp-for="Albumin" class="form-control" placeholder="ALBUMINA" />
-                <span asp-validation-for="Albumin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="diab"><b> Diabético? </b></label>
-                <input type="checkbox" asp-for="Diabetic" />
-            </div>
-            <button type="button" id="btnCalcular" class="btn btn-sample pull-right">Calcular   <i class="fas fa-calculator"></i></button>
-        }
+        <input type="hidden" asp-for="PatientId" />
+        <input type="hidden" asp-for="Name" />
+        <div class="form-group">
+            <input asp-for="AST" class="form-control" placeholder="AST" />
+            <span asp-validation-for="AST" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="ALT" class="form-control" placeholder="ALT" />
+            <span asp-validation-for="ALT" class="text-danger"></span>
+        </div>
+        <div class="form-group input-group">
+            <input asp-for="IMC" class="form-control" placeholder="IMC" />
+            <span asp-validation-for="IMC" class="text-danger"></span>
+            <span class="input-group-btn">
+                <button id="ImcButton" class="btn btn-success" type="button">Calcular IMC</button>
+            </span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Age" class="form-control" placeholder="IDADE" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Platelets" class="form-control" placeholder="PLAQUETAS" />
+            <span asp-validation-for="Platelets" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Albumin" class="form-control" placeholder="ALBUMINA" />
+            <span asp-validation-for="Albumin" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="diab"><b> Diabético? </b></label>
+            <input type="checkbox" asp-for="Diabetic" />
+        </div>
+        <button type="button" id="btnCalcular" class="btn btn-sample pull-right">Calcular   <i class="fas fa-calculator"></i></button>
     </div>
     <div class="col-lg-4"></div>
-
 </div>
 
 @*modal de resultado*@
@@ -244,7 +237,7 @@
                 $("#Imc").text("--.-");
             })
 
-            //Evento de click que salva os índices
+            //Evento de click que captura os índices, monta o objeto e faz o post
             $('#btnSalvar').click(function () {
 
                 var viewModel = {

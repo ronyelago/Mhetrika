@@ -224,27 +224,6 @@
             })
 
             //Evento de click que salva os índices
-            $("#Salvar").click(function () {
-                //Montagem do objeto
-                var viewModel = {
-                    Nome: "Jovelina",
-                    PacienteDados: {
-                        AST: $("#PacienteDados_AST").val(),
-                        ALT: $("#PacienteDados_ALT").val(),
-                        IMC: $("#PacienteDados_IMC").val(),
-                        Idade: $("#PacienteDados_Idade").val(),
-                        Plaquetas: $("#PacienteDados_Plaquetas").val(),
-                        Albumina: $("#PacienteDados_Albumina").val(),
-                        Diabetico: $("#PacienteDados_Diabetico").val()
-                    }
-                }
-                //Ajax que salva os índices
-                $.post("/Home/Create", {
-                    pacienteView
-                });
-            })
-
-            //**************************************************************************************************
             $('#btnSalvar').click(function () {
 
                 var viewModel = {
@@ -259,8 +238,11 @@
                     Diabetic: Verify()
                 }
 
-                $.post('/Fibrosis/Save', {
-                    viewModel
+                $.post('/Fibrosis/Save', { viewModel })
+                    .done(function () {
+
+                    $('#ResultadosModal').modal('hide');
+                    window.location.href = "/Patient/List";
                 })
             })
 

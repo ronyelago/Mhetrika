@@ -25,6 +25,7 @@ namespace Mhetrika.Web.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
         public ActionResult Save(FibrosisViewModel viewModel)
         {
             viewModel.DoctorId = 1;
@@ -34,7 +35,7 @@ namespace Mhetrika.Web.Controllers
 
             examRepository.Add(fibrosis);
 
-            return RedirectToAction("List", "Patient");
+            return View("Index");
         }
     }
 }

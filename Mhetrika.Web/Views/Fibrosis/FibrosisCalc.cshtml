@@ -153,13 +153,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Sucesso</h5>
+                <h5 class="modal-title" id="modalTitle">Sucesso</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Indicadores salvos com sucesso.</p>
+                <p id="message"></p>
             </div>
             <div class="modal-footer">
                 <button id="btnFechar" type="button" class="btn btn-primary">Fechar</button>
@@ -252,18 +252,32 @@
                     Diabetic: Verify()
                 }
 
-                $.post('/Fibrosis/Save', { viewModel })
-                    .done(function () {
-                    $('#ResultadosModal').modal('hide');
-                    $('#msgModal').modal('show');
+                $.post('/Fibrosis/Save', { viewModel }, function (data) {
+
+                    if (data.result == 'Redirect') {
+
+                        $('#ResultadosModal').modal('hide');
+                        $('#message').text('Indicadores salvos com sucesso.');
+                        $('#msgModal').modal('show');
+                    }
+                    else {
+
+                        $('#ResultadosModal').modal('hide');
+                        $('#modalTitle').text('Erro')
+                        $('#message').text('Ocorreu um erro ao tentar salvar indicadores.' + data.error);
+                        $('#msgModal').modal('show');
+                    }
                 })
             })
 
             $('#btnFechar').click(function () {
-                $('#msgModal').modal('hide');
-                window.location.href = '/Patient/List';
+                if ($('#modalTitle').text() == 'Erro') {
+                    $('#msgModal').modal('hide');
+                }
+                else {
+                    window.location = '/Patient/List'
+                }
             })
-
         })
 
         function CalculaImc(peso, altura) {

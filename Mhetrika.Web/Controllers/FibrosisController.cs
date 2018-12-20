@@ -3,6 +3,7 @@ using mhetrika.core.Entities;
 using mhetrika.Infrastructure.Repository;
 using Mhetrika.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mhetrika.Web.Controllers
 {
@@ -31,11 +32,18 @@ namespace Mhetrika.Web.Controllers
             viewModel.DoctorId = 1;
             viewModel.LaboratoryId = 1;
 
-            var fibrosis = Mapper.Map<Fibrosis>(viewModel);
+            try
+            {
+                var fibrosis = Mapper.Map<Fibrosis>(viewModel);
+                examRepository.Add(fibrosis);
 
-            examRepository.Add(fibrosis);
+                return Json(new { result = "Redirect", url = Url.Action(action: "List", controller:"Patient") });
+            }
 
-            return View("Index");
+            catch (Exception ex)
+            {
+                return Json(new { result = "Error", error = ex.InnerException.Message });
+            }
         }
     }
 }

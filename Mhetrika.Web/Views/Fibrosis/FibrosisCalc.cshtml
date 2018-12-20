@@ -99,6 +99,11 @@
                                         <td id="fib4Score"></td>
                                         <td id="fib4Obs"></td>
                                     </tr>
+                                    <tr>
+                                        <td>NAFLD</td>
+                                        <td id="nafldScore"></td>
+                                        <td id="nafldObs"></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -164,15 +169,18 @@
                 var alt = Number($('#ALT').val());
                 var platelets = Number($('#Platelets').val());
                 var age = Number($('#Age').val());
+                var albumin = Number($('#Albumin').val());
                 var diabetic = Verify();
 
                 var bard = CalculeBard(imc, ast, alt, diabetic);
                 var apri = CalculeApri(ast, platelets);
                 var fib4 = CalculeFib4(age, ast, platelets, alt);
+                var nafld = CalculeNafld(diabetic, age, imc, ast, alt, platelets, albumin);
                 
                 $('#bardScore').text(bard);
                 $('#apriScore').text(apri);
                 $('#fib4Score').text(fib4);
+                $('#nafldScore').text(nafld);
 
                 $('#ResultadosModal').modal('show');
             })
@@ -273,6 +281,20 @@
         function CalculeFib4(age, ast, platelets, alt) {
 
             return Math.round((age * ast) / ((platelets) * Math.sqrt(alt)), 2);
+        }
+
+        function CalculeNafld(diabetic, age, imc, ast, alt, platelets, albumin) {
+
+            var d = diabetic ? 1 : 0;
+
+            var n1 = 0.037 * age;
+            var n2 = 0.094 * imc;
+            var n3 = 1.13 * d;
+            var n4 = 0.99 * (ast / alt);
+            var n5 = 0.013 * platelets;
+            var n6 = 0.066 * albumin;
+
+            return Math.round((n1 + n2 + n3 + n4 - n5 - n6 - 1.675), 2);
         }
 
         //Checa se a checkbox Diabético? está marcada(true) ou não(false)
